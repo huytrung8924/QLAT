@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ERO Riverside Website
 
 Website giới thiệu dự án bất động sản ERO Riverside.
@@ -33,3 +34,6 @@ npm install
 npm run dev
 
 ```
+=======
+# QLAT
+>>>>>>> 552806fe4eddc122671e57737653598678dade37
