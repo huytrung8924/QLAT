@@ -17,11 +17,11 @@ Website giới thiệu dự án bất động sản ERO Riverside.
 - Bản đồ Google Maps và sơ đồ dự án
 - Thư viện hình ảnh và video
 - Form đăng ký khách hàng
-- Admin dashboard quản lý sản phẩm, bản đồ và gallery
+- Admin dashboard quản lý sửa thông tin sản phẩm, bản đồ và gallery
 
 ## Dữ liệu hiện đang quản lý bằng LocalStorage chưa xây dựng Backend
 
-## Tài khoản admin
+## Tài khoản admin test
 
 - Username: admin
 - Password: admin
