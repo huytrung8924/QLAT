@@ -6,6 +6,7 @@ function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -26,61 +27,142 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div className="login-section">
-      <div className="container">
+    <div className="login-page">
+      <div className="login-section">
         <div className="login-container">
-          <div className="login-logo">
-            <svg width="60" height="60" viewBox="0 0 50 50" fill="none">
-              <rect width="50" height="50" rx="10" fill="#1a237e" />
-              <path d="M25 10L40 35H10L25 10Z" fill="#ff6f00" />
-              <rect x="20" y="25" width="10" height="10" fill="white" />
-            </svg>
+          <div className="login-header">
+            <div className="login-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <h1>Đăng nhập Admin</h1>
+            <p>Quản lý hệ thống Eco Riverside</p>
           </div>
 
-          <h2>Đăng nhập Quản trị</h2>
-
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="login-form">
             {error && (
-              <div
-                style={{
-                  padding: "12px",
-                  background: "#ffebee",
-                  color: "var(--error)",
-                  borderRadius: "8px",
-                  marginBottom: "20px",
-                  textAlign: "center",
-                }}
-              >
-                {error}
+              <div className="login-error">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>{error}</span>
               </div>
             )}
 
             <div className="form-group">
               <label htmlFor="username">Tên đăng nhập</label>
-              <input
-                type="text"
-                id="username"
-                className="form-control"
-                placeholder="Nhập tên đăng nhập"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <div className="input-wrapper">
+                <div className="input-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="username"
+                  className="form-control"
+                  placeholder="Nhập tên đăng nhập"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="form-group">
               <label htmlFor="password">Mật khẩu</label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                placeholder="Nhập mật khẩu"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="input-wrapper">
+                <div className="input-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  className="form-control"
+                  placeholder="Nhập mật khẩu"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.68 6.38" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                  ) : (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
 
-            <button type="submit" className="btn btn-primary form-submit">
-              Đăng nhập
+            <button type="submit" className="btn btn-primary login-btn">
+              <span>Đăng nhập</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" strokeLinecap="round" />
+                <polyline
+                  points="12 5 19 12 12 19"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </form>
         </div>

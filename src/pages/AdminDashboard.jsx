@@ -1,107 +1,125 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getRegistrations } from "../utils/localStorage";
 
-function AdminDashboard({ registrations }) {
-  const stats = [
-    {
-      label: "Tổng sản phẩm",
-      value: 9,
-      icon: "🏠",
-      link: "/admin/products",
-    },
-    {
-      label: "Đăng ký mới",
-      value: registrations?.length || 0,
-      icon: "📝",
-      link: "/admin/products",
-    },
-    {
-      label: "Hình ảnh gallery",
-      value: 12,
-      icon: "🖼️",
-      link: "/admin/gallery",
-    },
-    {
-      label: "Lượt xem trang",
-      value: 1234,
-      icon: "👁️",
-      link: "#",
-    },
-  ];
+function AdminDashboard({ registrations, onRefresh }) {
+  const [localRegistrations, setLocalRegistrations] = useState([]);
+
+  useEffect(() => {
+    setLocalRegistrations(getRegistrations());
+  }, [registrations, onRefresh]);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa đăng ký này?")) {
+      const updated = localRegistrations.filter((r) => r.id !== id);
+      localStorage.setItem("ero_registrations", JSON.stringify(updated));
+      setLocalRegistrations(updated);
+      onRefresh();
+    }
+  };
+
+  const handleDeleteAll = () => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa tất cả đăng ký?")) {
+      localStorage.setItem("ero_registrations", JSON.stringify([]));
+      setLocalRegistrations([]);
+      onRefresh();
+    }
+  };
+
+  const currentRegs = registrations || localRegistrations;
 
   return (
     <div className="admin-section">
       <div className="container">
         <div className="admin-container">
           <div className="admin-header">
-            <h1>Quản trị hệ thống</h1>
+            <h1>📊 Quản lý đăng ký khách hàng</h1>
             <p style={{ color: "var(--text-secondary)" }}>
-              Chào mừng đến với trang quản trị ERO Riverside
+              Danh sách khách hàng đã đăng ký tư vấn dự án
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="admin-stats">
-            {stats.map((stat, index) => (
-              <div key={index} className="stat-card">
-                <div style={{ fontSize: "36px", marginBottom: "10px" }}>
-                  {stat.icon}
-                </div>
-                <h3>{stat.value}</h3>
-                <p>{stat.label}</p>
-              </div>
-            ))}
+          <div className="admin-btn-group">
+            <Link to="/" className="admin-btn admin-btn-primary">
+              ← Về trang chủ
+            </Link>
+            {currentRegs.length > 0 && (
+              <button onClick={handleDeleteAll} className="admin-btn admin-btn-danger">
+                🗑️ Xóa tất cả
+              </button>
+            )}
           </div>
 
-          {/* Quick Links */}
-          <div style={{ marginBottom: "40px" }}>
-            <h2 style={{ marginBottom: "20px", color: "var(--primary)" }}>
-              Quản lý nhanh
-            </h2>
-            <div className="admin-nav">
-              <Link to="/admin/products">Quản lý sản phẩm</Link>
-              <Link to="/admin/map">Quản lý bản đồ</Link>
-              <Link to="/admin/gallery">Quản lý gallery</Link>
-              <Link to="/">Xem trang web</Link>
+          {/* Stats Cards */}
+          <div className="admin-stats">
+            <div className="stat-card">
+              <div>📝</div>
+              <h3>{currentRegs.length}</h3>
+              <p>Tổng đăng ký</p>
+            </div>
+            <div className="stat-card">
+              <div>📅</div>
+              <h3>{currentRegs.filter(r => new Date(r.createdAt || r.date).toDateString() === new Date().toDateString()).length}</h3>
+              <p>Đăng ký hôm nay</p>
             </div>
           </div>
 
-          {/* Recent Registrations */}
+          {/* Registrations Table */}
           <div>
-            <h2 style={{ marginBottom: "20px", color: "var(--primary)" }}>
-              Đăng ký mới nhất
+            <h2 style={{ marginBottom: "25px", color: "var(--primary)", fontSize: "22px" }}>
+              📋 Danh sách đăng ký
             </h2>
-            {registrations && registrations.length > 0 ? (
-              <table className="admin-table">
-                <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Họ và tên</th>
-                    <th>Điện thoại</th>
-                    <th>Email</th>
-                    <th>Nhu cầu</th>
-                    <th>Ngày đăng ký</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {registrations.slice(0, 5).map((reg, index) => (
-                    <tr key={reg.id}>
-                      <td>{index + 1}</td>
-                      <td>{reg.fullName}</td>
-                      <td>{reg.phone}</td>
-                      <td>{reg.email}</td>
-                      <td>{reg.interest}</td>
-                      <td>
-                        {new Date(reg.createdAt).toLocaleDateString("vi-VN")}
-                      </td>
+            {currentRegs.length > 0 ? (
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Họ và tên</th>
+                      <th>Điện thoại</th>
+                      <th>Email</th>
+                      <th>Ngày đăng ký</th>
+                      <th>Thao tác</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentRegs
+                      .slice()
+                      .reverse()
+                      .map((reg, index) => (
+                        <tr key={reg.id}>
+                          <td><strong>{currentRegs.length - index}</strong></td>
+                          <td style={{ fontWeight: "500" }}>{reg.name || reg.fullName}</td>
+                          <td><a href={`tel:${reg.phone}`} style={{ color: "var(--primary)" }}>{reg.phone}</a></td>
+                          <td>{reg.email ? <a href={`mailto:${reg.email}`} style={{ color: "var(--primary)" }}>{reg.email}</a> : "-"}</td>
+                          <td>
+                            {reg.createdAt || reg.date
+                              ? new Date(reg.createdAt || reg.date).toLocaleDateString("vi-VN", {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })
+                              : "-"}
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => handleDelete(reg.id)}
+                              className="admin-action-btn delete"
+                            >
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
-              <div className="info-card" style={{ textAlign: "center" }}>
-                <p style={{ color: "var(--text-secondary)" }}>
-                  Chưa có đăng ký nào
-                </p>
+              <div className="admin-empty">
+                <div className="admin-empty-icon">📭</div>
+                <p>Chưa có đăng ký nào</p>
               </div>
             )}
           </div>

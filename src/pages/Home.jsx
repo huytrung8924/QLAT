@@ -1,27 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Home({ gallery = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      image:
-        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920",
-      title: "ERO Riverside",
-      subtitle: "Khu đô thị sinh thái thông minh cao cấp",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920",
-      title: "Cuộc sống đẳng cấp",
-      subtitle: "Tiện ích hiện đại, không gian xanh mát",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920",
-      title: "Vị trí chiến lược",
-      subtitle: "Kết nối thuận tiện mọi nơi",
+      image: "/images/banner-trang-chu.jpg",
+      title: "ĐÔ THỊ THƯỢNG LƯU",
+      subtitle: "RỰC SÁNG VÙNG THỦ ĐÔ",
     },
   ];
 
@@ -33,25 +20,88 @@ function Home() {
   }, [slides.length]);
 
   const projectInfo = [
+    { label: "Tên chính thức", value: "Khu đô thị mới Nam Từ Sơn" },
+    { label: "Tên thương mại", value: "Eco Riverside" },
+    { label: "Mã dự án", value: "7782" },
     {
-      icon: "🏢",
-      label: "Chủ đầu tư",
-      value: "ERO Group",
-    },
-    {
-      icon: "📐",
-      label: "Quy mô",
-      value: "45 ha - 3.000 căn",
-    },
-    {
-      icon: "📍",
       label: "Vị trí",
-      value: "Hà Nội - Bắc Ninh",
+      value: "Phường Phù Chẩn, Thị xã Từ Sơn, Tỉnh Bắc Ninh",
+    },
+    { label: "Chủ đầu tư", value: "Công ty CP Thiên Đức" },
+    { label: "Tổng diện tích", value: "200ha" },
+    { label: "Pháp lý", value: "Sổ đỏ từng lô" },
+  ];
+
+  const tienIchItems = [
+    {
+      image: "/images/tien-ich-1.jpg",
+      title: "QUẢNG TRƯỜNG",
     },
     {
-      icon: "🏠",
-      label: "Sản phẩm",
-      value: "Liền kề, Shophouse, Biệt thự",
+      image: "/images/tien-ich-2.jpg",
+      title: "CÔNG VIÊN PHỐ ĐI BỘ",
+    },
+    {
+      image: "/images/tien-ich-3.jpg",
+      title: "TỔ HỢP HAPPY ZONE",
+    },
+    {
+      image: "/images/tien-ich-4.jpg",
+      title: "CÔNG VIÊN NHẠC NƯỚC",
+    },
+    {
+      image: "/images/tien-ich-5.jpg",
+      title: "CÔNG VIÊN SINH THÁI",
+    },
+    {
+      image: "/images/tien-ich-6.jpg",
+      title: "TRƯỜNG MẦM NON",
+    },
+    {
+      image: "/images/tien-ich-7.jpg",
+      title: "SÂN PICKLEBALL",
+    },
+    {
+      image: "/images/tien-ich-8.jpg",
+      title: "TRUNG NGUYÊN E-COFFEE",
+    },
+    {
+      image: "/images/tien-ich-9.jpg",
+      title: "SÂN CHƠI THỂ THAO",
+    },
+    {
+      image: "/images/tien-ich-10.jpg",
+      title: "TRẠM SẠC XE ĐIỆN",
+    },
+  ];
+
+  const sanPhamItems = [
+    {
+      image: "/images/biet-thu-song-lap.jpeg",
+      title: "BIỆT THỰ SONG LẬP",
+      dtxd: "120m²",
+      dtsan: "360m²",
+      dtdat: "320-380m²",
+      desc: "Bố trí thành từng cặp trên mỗi lô riêng với không gian thoáng, nội thất sang trọng, hài hòa và hợp lý.",
+      link: "/products/detail/biet_thu_song_lap",
+    },
+    {
+      image: "/images/biet-thu-don-lap.png",
+      title: "BIỆT THỰ ĐƠN LẬP",
+      dtxd: "140m²",
+      dtsan: "420m²",
+      dtdat: "400-560m²",
+      desc: "Kiến trúc châu Âu hiện đại với sân vườn, bể bơi, sân tennis. An ninh 24/24 tuyệt đối.",
+      link: "/products/detail/biet_thu_don_lap",
+    },
+    {
+      image: "/images/van-phong-cao-oc.jpeg",
+      title: "VĂN PHÒNG-CAO ỐC",
+      dtxd: "3500m²",
+      dtsan: "12600m²",
+      dtdat: "18 tầng",
+      desc: "18 tầng gồm 3 tầng hầm xe, 3 tầng thương mại, các tầng còn lại cho thuê. Vị trí ngay QL1B.",
+      link: "/products/detail/van_phong_cao_oc",
     },
   ];
 
@@ -68,19 +118,17 @@ function Home() {
               <img src={slide.image} alt={slide.title} className="hero-image" />
               <div className="hero-overlay"></div>
               <div className="hero-content">
+                <div className="hero-special-badge">Đặc biệt</div>
                 <h1 className="hero-title">{slide.title}</h1>
                 <p className="hero-subtitle">{slide.subtitle}</p>
+
                 <div className="hero-buttons">
-                  <Link to="/products" className="btn btn-primary">
-                    Xem sản phẩm
+                  <Link to="/register" className="btn btn-secondary">
+                    ĐĂNG KÝ NGAY
                   </Link>
-                  <Link
-                    to="/register"
-                    className="btn btn-secondary"
-                    style={{ background: "white", color: "var(--primary)" }}
-                  >
-                    Đăng ký tư vấn
-                  </Link>
+                  <a href="/#san-pham" className="btn btn-primary">
+                    XEM SẢN PHẨM
+                  </a>
                 </div>
               </div>
             </div>
@@ -88,267 +136,407 @@ function Home() {
         </div>
       </section>
 
-      {/* Project Introduction */}
-      <section className="section">
+      {/* Giới thiệu dự án */}
+      <section className="section gioi-thieu-section" id="gioi-thieu-du-an">
         <div className="container">
-          <h2 className="section-title">Giới thiệu dự án ERO Riverside</h2>
+          <h2 className="section-title line-title">
+            Giới thiệu dự án đô thị ECO RIVERSIDE HÀ NỘI - BẮC NINH
+          </h2>
           <p className="section-subtitle">
-            Khu đô thị sinh thái thông minh cao cấp tại Hà Nội - Bắc Ninh
+            "Một không gian châu Âu trong lòng Hà Nội - Bắc Ninh"
           </p>
+          <div className="gioi-thieu-grid">
+            <div className="gioi-thieu-image-wrapper">
+              <div className="gioi-thieu-image-frame">
+                <img
+                  src="/images/mat-bang.jpg"
+                  alt="Khu đô thị Nam Từ Sơn"
+                  className="gioi-thieu-image"
+                />
+              </div>
+              <div className="gioi-thieu-decor gioi-thieu-decor-tl"></div>
+              <div className="gioi-thieu-decor gioi-thieu-decor-br"></div>
+            </div>
+            <div className="gioi-thieu-content">
+              <p>
+                Dự án khu đô thị mới Nam Từ Sơn hay còn được biết đến với tên
+                gọi mỹ miều là{" "}
+                <strong>
+                  "Một không gian châu Âu trong lòng Hà Nội - Bắc Ninh"
+                </strong>
+                . Với diện tích quy hoạch lên đến <strong>200ha</strong>, nơi
+                đây được đánh giá là vùng đất "thiên thời, địa lợi, nhân hòa"
+                khi hội đủ những yếu tố thuận lợi nhất để hình thành nên một khu
+                đô thị kiểu mẫu với những ưu thế đặc biệt.
+              </p>
+              <p>
+                Mạng lưới giao thông nối liền <strong>cầu Thanh Trì</strong>{" "}
+                giúp rút ngắn khoảng cách từ khu đô thị Nam Từ Sơn tới thủ đô Hà
+                Nội cũng như các nút giao thông khác. Ngoài ra, dự án còn xây
+                dựng mức <strong>271 song song cầu Đại Đình</strong> hiện đại,
+                đảm bảo phục vụ giao thông rất tiện lợi.
+              </p>
+              <p>
+                Khu đô thị Nam Từ Sơn được coi là một trong những dự án hạt nhân
+                của chiến lược phát triển đô thị mở rộng của hai thành phố lớn
+                Hà Nội và Bắc Ninh, song song với đó là các khu kinh tế xã hội
+                trong khu vực mở rộng này.
+              </p>
+              <p>
+                Với quy chế quản lý chuyên nghiệp cùng đội ngũ nhân viên năng
+                động và tràn đầy kinh nghiệm, chắc chắn rằng những cư dân nơi
+                đây sẽ được sống trong một xã hội văn hoá cao, thuận tiện và
+                được phục vụ chu đáo tận tình.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <div
-            style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center" }}
-          >
-            <p
-              style={{
-                fontSize: "18px",
-                lineHeight: "1.8",
-                color: "var(--text-secondary)",
-                marginBottom: "30px",
-              }}
+      {/* Thông tin dự án */}
+      <section
+        className="section thong-tin-section"
+        id="thong-tin-du-an"
+        style={{ padding: "40px 0" }}
+      >
+        <div className="thong-tin-grid">
+          <div className="thong-tin-image-side">
+            <img
+              src="/images/gioi-thieu.png"
+              alt="Thông tin dự án Eco Riverside"
+              className="thong-tin-bg-image"
+            />
+          </div>
+          <div className="thong-tin-content">
+            <h3
+              className="thong-tin-name"
+              style={{ fontSize: "24px", marginBottom: "8px" }}
             >
-              <strong>ERO Riverside</strong> là dự án khu đô thị sinh thái thông
-              minh cao cấp được phát triển bởi ERO Group tại vị trí chiến lược
-              giữa Hà Nội và Bắc Ninh. Dự án mang đến một không sống đẳng cấp
-              với hệ thống tiện ích hiện đại, không gian xanh mát và các sản
-              phẩm bất động sản đa dạng từ liền kề, shophouse đến biệt thự.
+              ECO RIVERSIDE
+            </h3>
+            <p
+              className="thong-tin-subtitle"
+              style={{ fontSize: "14px", marginBottom: "12px" }}
+            >
+              MỞ BÁN PHÂN KHU MỚI
             </p>
-            <p
-              style={{
-                fontSize: "18px",
-                lineHeight: "1.8",
-                color: "var(--text-secondary)",
-              }}
-            >
-              Với tầm nhìn trở thành khu đô thị kiểu mẫu, ERO Riverside không
-              chỉ là nơi an cư lý tưởng mà còn là cơ hội đầu tư hấp dẫn với tiềm
-              năng tăng giá cao trong tương lai gần.
+            <ul className="thong-tin-list" style={{ gap: "8px" }}>
+              {projectInfo.map((info, i) => (
+                <li
+                  key={i}
+                  className="thong-tin-item"
+                  style={{ fontSize: "13px", marginBottom: "6px" }}
+                >
+                  <span className="thong-tin-icon">★</span>
+                  <span>
+                    <strong>{info.label}:</strong> {info.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div style={{ textAlign: "center", marginTop: "16px" }}>
+              <Link to="/register" className="btn btn-primary">
+                ĐĂNG KÝ NGAY
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5 Lý do chọn dự án */}
+      <section className="ly-do-section" id="5-ly-do">
+        <div className="ly-do-bg-pattern"></div>
+        <div className="container ly-do-container">
+          <div className="ly-do-header">
+            <span className="ly-do-badge">Tại sao chọn Eco Riverside</span>
+            <h2 className="ly-do-title">5 Lý do nên đầu tư</h2>
+            <div className="ly-do-title-line"></div>
+            <p className="ly-do-subtitle">
+              Khám phá những ưu thế vượt trội của khu đô thị Nam Từ Sơn
+            </p>
+          </div>
+          <div className="ly-do-wrapper">
+            <div className="ly-do-image-col">
+              <div className="ly-do-image-wrapper">
+                <img
+                  src="/images/5-ly-do.jpg"
+                  alt="5 Lý do chọn dự án"
+                  className="ly-do-img"
+                />
+                <div className="ly-do-image-border"></div>
+                <div className="ly-do-image-accent"></div>
+                <div className="ly-do-image-accent-2"></div>
+                <div className="ly-do-image-accent-3"></div>
+              </div>
+              <div className="ly-do-decoration-1"></div>
+              <div className="ly-do-decoration-2"></div>
+            </div>
+            <div className="ly-do-content-col">
+              <div className="ly-do-item">
+                <div className="ly-do-num-wrapper">
+                  <div className="ly-do-num">1</div>
+                  <div className="ly-do-num-line"></div>
+                </div>
+                <div className="ly-do-text">
+                  <h3 className="ly-do-item-title">Vị trí đắc địa bậc nhất</h3>
+                  <p className="ly-do-desc">
+                    Tọa lạc tại "thủ phủ công nghiệp" - quy mô lớn thứ 5 cả
+                    nước, thứ 2 miền Bắc, tốc độ tăng trưởng cao nhất nhiều năm.
+                  </p>
+                </div>
+              </div>
+              <div className="ly-do-item">
+                <div className="ly-do-num-wrapper">
+                  <div className="ly-do-num">2</div>
+                  <div className="ly-do-num-line"></div>
+                </div>
+                <div className="ly-do-text">
+                  <h3 className="ly-do-item-title">
+                    Hạ tầng đồng bộ chuẩn quốc tế
+                  </h3>
+                  <p className="ly-do-desc">
+                    Thiết kế đồng bộ từ hạ tầng kỹ thuật đến xã hội theo tiêu
+                    chuẩn quốc tế, kiến trúc hiện đại Châu Âu.
+                  </p>
+                </div>
+              </div>
+              <div className="ly-do-item">
+                <div className="ly-do-num-wrapper">
+                  <div className="ly-do-num">3</div>
+                  <div className="ly-do-num-line"></div>
+                </div>
+                <div className="ly-do-text">
+                  <h3 className="ly-do-item-title">Giao thông thuận lợi</h3>
+                  <p className="ly-do-desc">
+                    Kết nối cầu Thanh Trì, rút ngắn khoảng cách đến Hà Nội và
+                    các nút giao thông trong khu vực.
+                  </p>
+                </div>
+              </div>
+              <div className="ly-do-item">
+                <div className="ly-do-num-wrapper">
+                  <div className="ly-do-num">4</div>
+                  <div className="ly-do-num-line"></div>
+                </div>
+                <div className="ly-do-text">
+                  <h3 className="ly-do-item-title">
+                    Môi trường sống trong lành
+                  </h3>
+                  <p className="ly-do-desc">
+                    Công viên trung tâm với mặt nước và cây xanh - lá phổi điều
+                    hòa không khí cho toàn khu đô thị.
+                  </p>
+                </div>
+              </div>
+              <div className="ly-do-item">
+                <div className="ly-do-num-wrapper">
+                  <div className="ly-do-num">5</div>
+                  <div className="ly-do-num-line"></div>
+                </div>
+                <div className="ly-do-text">
+                  <h3 className="ly-do-item-title">Pháp lý minh bạch</h3>
+                  <p className="ly-do-desc">
+                    Diện tích lô đất hợp lý, bàn giao nhanh, hạ tầng hoàn thiện
+                    100%, sổ đỏ từng lô.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vị trí */}
+      <section className="vi-tri-section" id="vi-tri">
+        <div className="container">
+          <div className="vi-tri-header">
+            <h2 className="vi-tri-main-title">TÂM ĐIỂM GIAO THOA</h2>
+            <p className="vi-tri-subtitle">
+              KẾT NỐI THỦ ĐÔ, CHẠM TỚI PHỒN VINH
             </p>
           </div>
 
-          <div className="project-info">
-            {projectInfo.map((info, index) => (
-              <div key={index} className="info-card">
-                <div className="info-icon">{info.icon}</div>
-                <div className="info-label">{info.label}</div>
-                <div className="info-value">{info.value}</div>
+          <div className="vi-tri-content-wrapper">
+            <div className="vi-tri-map">
+              <a
+                href="https://www.google.com/maps?q=21.086694,105.961528"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vi-tri-map-link"
+              >
+                <img src="/images/map_animaiton_1.gif" alt="Bản đồ vị trí" />
+                <span className="vi-tri-map-hint">
+                  Nhấn để xem vị trí cụ thể trong Google Map
+                </span>
+              </a>
+            </div>
+            <div className="vi-tri-info">
+              <p className="vi-tri-desc">
+                Tọa lạc tại vị trí đắc địa thuộc phường Phù Chẩn, thị xã Từ Sơn,
+                tỉnh Bắc Ninh. Khu đô thị Nam Từ Sơn được coi là “mảnh đất vàng”
+                khi nằm ngay tại trung tâm kinh tế được coi là sầm uất bậc nhất
+                thị xã Từ Sơn. Không chỉ là cửa ngõ giúp kết nối với các địa
+                điểm trọng yếu mà dự án khu đô thị Nam Từ Sơn còn là điểm nút
+                giao khiến cho việc kết nối đến thành phố Bắc Ninh cũng như các
+                khu công nghiệp lớn trong và ngoài Bắc Ninh trở nên dễ dàng hơn.
+              </p>
+              <div className="location-cards">
+                <div className="location-card">
+                  <h3>15 phút</h3>
+                  <p>Đến thành phố Bắc Ninh</p>
+                </div>
+                <div className="location-card">
+                  <h3>20 phút</h3>
+                  <p>Đến thủ đô Hà Nội</p>
+                </div>
+                <div className="location-card">
+                  <h3>20 phút</h3>
+                  <p>Đến sân bay Gia Bình</p>
+                </div>
+                <div className="location-card">
+                  <h3>30 phút</h3>
+                  <p>Đến sân bay Nội Bài</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sản phẩm */}
+      <section className="product-section" id="san-pham">
+        <div className="bg-pattern"></div>
+        <div className="bg-line bg-line-1"></div>
+        <div className="bg-line bg-line-2"></div>
+        <div className="container">
+          <h2 className="section-title line-title">Sản phẩm đa dạng</h2>
+          <p className="section-subtitle">
+            Đáp ứng mọi nhu cầu thực của quý khách hàng
+          </p>
+          <div className="san-pham-grid">
+            {sanPhamItems.map((item, index) => (
+              <a href={item.link} key={index} className="san-pham-card">
+                <div className="san-pham-card-image">
+                  <img src={item.image} alt={item.title} />
+                  <div className="san-pham-card-overlay">
+                    <span className="xem-chi-tiet-btn">Xem chi tiết</span>
+                  </div>
+                </div>
+                <div className="san-pham-card-content">
+                  <h4>{item.title}</h4>
+                  <div className="san-pham-specs">
+                    <p>
+                      Diện tích xây dựng: <strong>{item.dtxd}</strong>
+                    </p>
+                    <p>
+                      Diện tích sàn: <strong>{item.dtsan}</strong>
+                    </p>
+                    <p>
+                      Diện tích đất: <strong>{item.dtdat}</strong>
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tiện ích */}
+      <section className="tien-ich-section" id="tien-ich">
+        <div className="tien-ich-bg"></div>
+        <div className="container">
+          <div className="tien-ich-header">
+            <h2 className="line-title">TỔ HỢP TIỆN ÍCH ĐẲNG CẤP</h2>
+          </div>
+          <div className="tien-ich-grid">
+            {tienIchItems.map((item, index) => (
+              <div key={index} className="tien-ich-item">
+                <div className="tien-ich-card">
+                  <div className="tien-ich-img">
+                    <img src={item.image} alt={item.title} />
+                  </div>
+                  <div className="tien-ich-content">
+                    <h4>{item.title}</h4>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Products Preview */}
-      <section className="section section-bg">
+      {/* Album */}
+      <section className="album-section" id="album">
+        <div className="album-decor album-decor-1"></div>
+        <div className="album-decor album-decor-2"></div>
+        <div className="album-decor album-decor-3"></div>
         <div className="container">
-          <h2 className="section-title">Danh mục sản phẩm</h2>
-          <p className="section-subtitle">
-            Khám phá các loại sản phẩm đa dạng tại ERO Riverside
-          </p>
-
-          <div className="products-grid">
-            <div className="product-card">
-              <div className="product-image">
-                <img
-                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600"
-                  alt="Liền kề"
-                />
-                <span className="product-badge">Hot</span>
-              </div>
-              <div className="product-content">
-                <h3 className="product-name">Liền kề</h3>
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    marginBottom: "15px",
-                  }}
-                >
-                  Căn liền kề 4-5 tầng, thiết kế hiện đại, phù hợp kinh doanh và
-                  ở
-                </p>
-                <Link
-                  to="/products/lien_ke"
-                  className="btn btn-primary"
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  Xem chi tiết
-                </Link>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600"
-                  alt="Shophouse"
-                />
-                <span className="product-badge">Best Seller</span>
-              </div>
-              <div className="product-content">
-                <h3 className="product-name">Shophouse</h3>
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    marginBottom: "15px",
-                  }}
-                >
-                  Mặt phố thương mại, vị trí đắc địa, tiềm năng kinh doanh cao
-                </p>
-                <Link
-                  to="/products/shophouse"
-                  className="btn btn-primary"
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  Xem chi tiết
-                </Link>
-              </div>
-            </div>
-
-            <div className="product-card">
-              <div className="product-image">
-                <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600"
-                  alt="Biệt thự"
-                />
-                <span className="product-badge">Cao cấp</span>
-              </div>
-              <div className="product-content">
-                <h3 className="product-name">Biệt thự</h3>
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    marginBottom: "15px",
-                  }}
-                >
-                  Biệt thự đơn lập, song lập, không gian sống đẳng cấp
-                </p>
-                <Link
-                  to="/products/biet_thu"
-                  className="btn btn-primary"
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  Xem chi tiết
-                </Link>
-              </div>
-            </div>
+          <div className="album-header">
+            <h2 className="album-title line-title">ALBUM HÌNH ẢNH</h2>
+            <p className="album-subtitle">
+              KHÁM PHÁ KHÔNG GIAN SỐNG ĐẲNG CẤP TẠI ECO RIVERSIDE
+            </p>
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "40px" }}>
-            <Link to="/products" className="btn btn-secondary">
-              Xem tất cả sản phẩm
-            </Link>
+          <div className="album-wrapper">
+            <img
+              src="/images/album.jpeg"
+              alt="Album hình ảnh dự án"
+              className="album-main-image"
+            />
           </div>
         </div>
       </section>
 
-      {/* Advantages */}
-      <section className="section">
+      {/* Video Giới thiệu */}
+      <section className="video-intro-section" id="video-gioi-thieu">
+        <div className="video-intro-decor video-intro-decor-1"></div>
+        <div className="video-intro-decor video-intro-decor-2"></div>
+        <div className="video-intro-decor video-intro-decor-3"></div>
         <div className="container">
-          <h2 className="section-title">Tiện ích & Hạ tầng</h2>
-          <p className="section-subtitle">
-            Những ưu điểm vượt trội của ERO Riverside
-          </p>
+          <div className="video-intro-header">
+            <h2 className="video-intro-title line-title">VIDEO GIỚI THIỆU</h2>
+            <p className="video-intro-subtitle">
+              TÌM HIỂU CHI TIẾT VỀ DỰ ÁN ECO RIVERSIDE
+            </p>
+          </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "30px",
-              marginTop: "40px",
-            }}
-          >
-            {[
-              {
-                icon: "🌳",
-                title: "Công viên",
-                desc: "Công viên cây xanh, hồ điều hòa",
-              },
-              {
-                icon: "🏊",
-                title: "Bể bơi",
-                desc: "Bể bơi 4 mùa tiêu chuẩn quốc tế",
-              },
-              {
-                icon: "🏋️",
-                title: "Gym & Spa",
-                desc: "Phòng gym, spa cao cấp",
-              },
-              {
-                icon: "🛒",
-                title: "Trung tâm thương mại",
-                desc: "Shophouse, siêu thị, nhà hàng",
-              },
-              {
-                icon: "🏫",
-                title: "Trường học",
-                desc: "Hệ thống giáo dục quốc tế",
-              },
-              { icon: "🏥", title: "Y tế", desc: "Bệnh viện, phòng khám" },
-              {
-                icon: "🔒",
-                title: "An ninh",
-                desc: "Bảo vệ 24/7, camera giám sát",
-              },
-              {
-                icon: "🚗",
-                title: "Giao thông",
-                desc: "Đường rộng, parking rộng",
-              },
-            ].map((item, index) => (
-              <div key={index} className="info-card">
-                <div className="info-icon">{item.icon}</div>
-                <div
-                  className="info-label"
-                  style={{ fontSize: "16px", fontWeight: "600" }}
-                >
-                  {item.title}
-                </div>
-                <div className="info-value" style={{ fontSize: "14px" }}>
-                  {item.desc}
-                </div>
-              </div>
-            ))}
+          <div className="video-intro-wrapper">
+            <div className="video-intro-container">
+              <iframe
+                width="100%"
+                height="600"
+                src="https://www.youtube.com/embed/3S5XZniGqOI"
+                title="Giới thiệu Eco Riverside"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="video-intro-iframe"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section
-        className="section"
-        style={{
-          background: "linear-gradient(135deg, var(--primary), #3949ab)",
-          color: "white",
-        }}
-      >
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "36px", marginBottom: "20px" }}>
-            Bạn quan tâm đến dự án ERO Riverside?
+      <section className="cta-section">
+        <div className="container">
+          <h2 style={{ fontSize: "24px" }}>
+            Bạn quan tâm đến sản phẩm Eco Riverside?
           </h2>
-          <p style={{ fontSize: "18px", marginBottom: "30px", opacity: 0.9 }}>
-            Hãy đăng ký ngay để nhận tư vấn miễn phí và cập nhật thông tin mới
-            nhất
-          </p>
-          <div
-            style={{ display: "flex", gap: "15px", justifyContent: "center" }}
-          >
-            <Link
-              to="/register"
-              className="btn btn-primary"
-              style={{ background: "white", color: "var(--primary)" }}
-            >
-              Đăng ký ngay
+          <p>Liên hệ ngay để được tư vấn chi tiết và nhận ưu đãi tốt nhất</p>
+          <div className="cta-buttons">
+            <Link to="/register" className="btn btn-primary">
+              ĐĂNG KÝ TƯ VẤN
             </Link>
-            <Link
-              to="/map"
-              className="btn"
-              style={{
-                background: "transparent",
-                border: "2px solid white",
-                color: "white",
-              }}
+            <a
+              href="tel:0241765888"
+              className="btn btn-outline"
+              style={{ borderColor: "white", color: "white" }}
             >
-              Xem vị trí
-            </Link>
+              GỌI NGAY
+            </a>
           </div>
         </div>
       </section>

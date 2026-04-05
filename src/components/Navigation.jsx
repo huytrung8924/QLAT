@@ -10,7 +10,6 @@ function Navigation({ isLoggedIn, onLogout }) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -22,24 +21,18 @@ function Navigation({ isLoggedIn, onLogout }) {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        <Link to="/" className="nav-logo">
-          <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
-            <rect width="50" height="50" rx="10" fill="#1a237e" />
-            <path d="M25 10L40 35H10L25 10Z" fill="#ff6f00" />
-            <rect x="20" y="25" width="10" height="10" fill="white" />
-          </svg>
-          <span>ERO Riverside</span>
-        </Link>
+        <a href="/" className="nav-logo">
+          <img src="/images/logo.png" alt="Eco Riverside" />
+          <div className="nav-logo-text">
+            <span className="nav-logo-title">ECO RIVERSIDE</span>
+            <span className="nav-logo-subtitle">Nam Từ Sơn</span>
+          </div>
+        </a>
 
         <ul className="nav-menu">
-          <li className="nav-item">
-            <NavLink to="/" className="nav-link">
-              Giới thiệu
-            </NavLink>
-          </li>
           <li className="nav-item nav-dropdown">
-            <NavLink to="/products" className="nav-link">
-              Danh mục sản phẩm
+            <NavLink to="/" className="nav-link">
+              Tổng quan
               <svg
                 width="12"
                 height="12"
@@ -55,30 +48,48 @@ function Navigation({ isLoggedIn, onLogout }) {
               </svg>
             </NavLink>
             <div className="dropdown-menu">
-              <Link to="/products/lien_ke" className="dropdown-item">
-                Liền kề
-              </Link>
-              <Link to="/products/shophouse" className="dropdown-item">
-                Shophouse
-              </Link>
-              <Link to="/products/biet_thu" className="dropdown-item">
-                Biệt thự
-              </Link>
+              <a href="/#gioi-thieu-du-an" className="dropdown-item">
+                Giới thiệu dự án
+              </a>
+              <a href="/#thong-tin-du-an" className="dropdown-item">
+                Thông tin dự án
+              </a>
+              <a href="/#5-ly-do" className="dropdown-item">
+                5 lý do nên đầu tư
+              </a>
+              <a href="/#vi-tri" className="dropdown-item">
+                Vị trí
+              </a>
             </div>
           </li>
           <li className="nav-item">
-            <NavLink to="/map" className="nav-link">
-              Bản đồ & Sơ đồ
-            </NavLink>
+            <a
+              href="https://online.fliphtml5.com/fallo/ezcq/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link"
+            >
+              Catalog
+            </a>
           </li>
           <li className="nav-item">
-            <NavLink to="/gallery" className="nav-link">
-              Thư viện
-            </NavLink>
+            <a href="/#san-pham" className="nav-link">
+              Sản phẩm
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/#tien-ich" className="nav-link">
+              Tiện ích
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/#album" className="nav-link">
+              Album
+            </a>
           </li>
           <li className="nav-item">
             <NavLink to="/register" className="nav-link">
-              Đăng ký
+              Đăng ký tư vấn
             </NavLink>
           </li>
         </ul>
@@ -94,7 +105,7 @@ function Navigation({ isLoggedIn, onLogout }) {
               </button>
             </>
           ) : (
-            <Link to="/login" className="btn btn-primary">
+            <Link to="/login" className="btn btn-secondary">
               Đăng nhập
             </Link>
           )}
@@ -110,32 +121,19 @@ function Navigation({ isLoggedIn, onLogout }) {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <div className={`mobile-menu ${mobileMenuOpen ? "active" : ""}`}>
         <ul>
           <li>
-            <Link to="/">Giới thiệu</Link>
+            <a href="/">Tổng quan</a>
           </li>
           <li>
-            <span
-              style={{ display: "block", padding: "15px", fontWeight: "500" }}
-            >
-              Danh mục sản phẩm
-            </span>
-            <div className="dropdown-menu">
-              <Link to="/products/lien_ke">Liền kề</Link>
-              <Link to="/products/shophouse">Shophouse</Link>
-              <Link to="/products/biet_thu">Biệt thự</Link>
-            </div>
+            <a href="/#san-pham">Sản phẩm</a>
           </li>
           <li>
-            <Link to="/map">Bản đồ & Sơ đồ</Link>
+            <a href="/#album">Album</a>
           </li>
           <li>
-            <Link to="/gallery">Thư viện</Link>
-          </li>
-          <li>
-            <Link to="/register">Đăng ký</Link>
+            <Link to="/register">Liên hệ</Link>
           </li>
           {isLoggedIn ? (
             <>
@@ -152,7 +150,7 @@ function Navigation({ isLoggedIn, onLogout }) {
                     textAlign: "left",
                     padding: "15px",
                     fontWeight: "500",
-                    color: "#f44336",
+                    color: "#b20000",
                   }}
                 >
                   Đăng xuất
